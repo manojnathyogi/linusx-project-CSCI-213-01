@@ -1,1 +1,1 @@
-# linusx-project-CSCI-213-01
+# linux-project-CSCI-213-01
