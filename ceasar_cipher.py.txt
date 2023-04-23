@@ -1,32 +1,34 @@
 import sys
 
-def ceasar_cipher(shift,text):
-  encrypt = ""
-  row = column = 1
-  for char in text.upper():    
-    if char.isalpha() == True:
-      asc_char = ord(char)
-      new_char_code = asc_char + shift
-      if new_char_code > 90:
-        remaining = new_char_code - 90
-        new_char_code = 64 + remaining
-      new_char = chr(new_char_code)
-      if row == 5:
-        encrypt+= new_char
-        encrypt+=" "
-        row = 1
-        column += 1
-      else:
-        encrypt += new_char
-        row+= 1
-      if column > 10:
-        encrypt += "\n"
-        column = 1
-  return encrypt
+# Define a function to implement the Caesar Cipher algorithm
+def ceasar_cipher(shift, text):
+    encrypt = ""     # Initialize an empty string to store the encrypted message
+    row = column = 1 # Initialize row and column counters for formatting the output
+    for char in text.upper(): # Iterate over each character in the input text after converting it to uppercase
+        if char.isalpha() == True: # Check if the character is an alphabet or not
+            asc_char = ord(char)     # Convert the character to its ASCII value
+            new_char_code = asc_char + shift  # Apply the shift to the ASCII value to get the new character code
+            if new_char_code > 90:   # Handle wraparound if the new character code exceeds the ASCII code for 'Z'
+                remaining = new_char_code - 90
+                new_char_code = 64 + remaining
+            new_char = chr(new_char_code) # Convert the new character code back to its ASCII character
+            if row == 5:         # Format the output by adding a space after every 5 characters
+                encrypt += new_char
+                encrypt += " "
+                row = 1           # Reset the row counter to start a new row
+                column += 1       # Increment the column counter to track the current column
+            else:               # Add the encrypted character to the string and increment the row counter
+                encrypt += new_char
+                row += 1
+            if column > 10:      # Add a newline character after every 10 columns for better readability
+                encrypt += "\n"
+                column = 1        # Reset the column counter to start a new row
+    return encrypt         # Return the encrypted message string
 
+# Check if the code is being run as a standalone program or being imported as a module
 if __name__ == '__main__':
-    shift = int(sys.argv[1])
-    message = input('Enter a message to encrypt: ')
-    encrypted_message = ceasar_cipher(shift, message)
-    print(encrypted_message)
+    shift = int(sys.argv[1])                # Read the first command line argument as the shift value
+    message = input('Enter a message to encrypt: ') # Take user input for the message to be encrypted
+    encrypted_message = ceasar_cipher(shift, message) # Call the ceaser_cipher function with shift and message as arguments
+    print(encrypted_message)                       # Print the encrypted message string to the console
 
